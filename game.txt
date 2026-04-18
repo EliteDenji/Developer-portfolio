@@ -1,0 +1,98 @@
+Simple Shooting Game (PyGame)
+
+Introduction
+
+This project is a 2D shooting game developed using the Pygame library in Python.
+The player controls a character that can move horizontally and shoot bullets to simulate a basic arcade-style game.
+
+Objective of the Game
+
+	•	Control a player object on the screen
+	•	Move left and right using keyboard keys
+	•	Shoot bullets using the spacebar
+
+
+    Tools & Technologies
+
+	•	Programming Language: Python
+	•	Library: Pygame
+	•	Platform: Desktop
+
+    Tools & Technologies
+	•	Programming Language: Python
+	•	Library: Pygame
+	•	Platform: Desktop
+
+
+    CODE:
+
+
+    import pygame
+import sys
+
+
+pygame.init()
+
+
+WIDTH, HEIGHT = 800, 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Simple Shooting Game")
+
+
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+
+
+player_size = 50
+player_x = WIDTH // 2
+player_y = HEIGHT - 60
+player_speed = 5
+
+
+bullet_width = 5
+bullet_height = 10
+bullet_speed = 7
+bullets = []
+
+
+clock = pygame.time.Clock()
+
+
+running = True
+while running:
+    screen.fill(WHITE)
+
+ 
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                bullet_x = player_x + player_size // 2
+                bullet_y = player_y
+                bullets.append([bullet_x, bullet_y])
+
+    
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        player_x -= player_speed
+    if keys[pygame.K_RIGHT]:
+        player_x += player_speed
+
+    
+    pygame.draw.rect(screen, RED, (player_x, player_y, player_size, player_size))
+
+   
+    for bullet in bullets:
+        bullet[1] -= bullet_speed
+        pygame.draw.rect(screen, (0, 0, 0), (bullet[0], bullet[1], bullet_width, bullet_height))
+
+    bullets = [b for b in bullets if b[1] > 0]
+
+   
+    pygame.display.update()
+    clock.tick(60)
+
+pygame.quit()
+sys.exit().
